@@ -1,5 +1,7 @@
 import os
-import pandoc
+import re
+import sys
+import pypandoc
 
 def convert_markdown_to_epub(input_file, output_file):
     # Read the Markdown file
@@ -16,7 +18,7 @@ def convert_markdown_to_epub(input_file, output_file):
             convert_markdown_to_epub(linked_file, output_file)
 
     # Convert the current Markdown file to EPUB
-    pandoc.convert_file(input_file, 'epub', output=output_file)
+    pypandoc.convert_file(input_file, 'epub', outputfile=output_file)
 
 def extract_links(markdown_content):
     # Regular expression to match Markdown links
@@ -25,18 +27,20 @@ def extract_links(markdown_content):
     # Extract links from the Markdown content
     links = []
     for match in re.finditer(link_regex, markdown_content):
-        link = match.group('link')
+        # link = match.group('link')
         url = match.group('url')
 
         # Check if the link is a relative path to a Markdown file
         if url.startswith('./') or url.startswith('../'):
             links.append(url[2:])
 
+    print (links)
     return links
 
 if __name__ == '__main__':
-    entrypoint_file = 'documentation.md'  # Replace with the actual filename
-    output_file = 'documentation.epub'
+    entrypoint_file = sys.argv[1]
+    # entrypoint_file = 'documentation.md'  # Replace with the actual filename
+    output_file = 'output.epub'
 
     convert_markdown_to_epub(entrypoint_file, output_file)
 
