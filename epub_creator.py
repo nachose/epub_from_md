@@ -8,6 +8,9 @@ def convert_markdown_to_epub(input_file, output_file):
     with open(input_file, 'r') as f:
         markdown_content = f.read()
 
+    # Find links and print them.
+    find_links(markdown_content)
+
     # Extract links to other Markdown files
     links = extract_links(markdown_content)
 
@@ -36,6 +39,15 @@ def extract_links(markdown_content):
 
     print (links)
     return links
+
+def find_links(markdown_content):
+    link_pattern = r'\[([^\]]+)\]\((http[s]?:\/\/(?:[a-zA-Z]|[0-9]|[$-_@.&+]|[!*\\(\\),]|(?:%[0-9a-fA-F][0-9a-fA-F]))+)\)'
+    links = re.findall(link_pattern, markdown_content)
+
+    for link in links:
+        print(f"Link text: {link[0]}")
+        print(f"URL: {link[1]}")
+
 
 if __name__ == '__main__':
     entrypoint_file = sys.argv[1]
