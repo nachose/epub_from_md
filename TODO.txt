@@ -1,0 +1,10 @@
+
+                      TODO.txt
+
+-Right now, it only works because we don't have a deep hiherachy.
+If instead we had more than level of directories for the md files, it would fails, as
+it is failing for images.
+
+-Change routes to images.
+
+-Change headers, so that they inherit depth from parent.
