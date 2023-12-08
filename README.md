@@ -1,4 +1,4 @@
-# epub_from_md
+# Epub from markdown.
 Try to create epubs from md documentation
 
 ## Dependencies.
