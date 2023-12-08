@@ -319,3 +319,9 @@ font-size: 0.9em;
 }
 
 /*==eBook Specific Formatting Below Here==*/
+/* After each header, insert a new line. After each paragraph, insert a new line */
+h1::after, h2::after, h3::after, h4::after, h5::after, h6::after, p::after {
+    content: "\A";
+    white-space: pre;
+}
+

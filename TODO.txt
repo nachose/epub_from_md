@@ -16,3 +16,5 @@ it is failing for images.
 
 -Instead of passing around parameters, create a new class GenContext or something like that
  that contains all the data.
+
+-Read the metadata header, and add it as header of the contents

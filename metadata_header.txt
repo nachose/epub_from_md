@@ -1,0 +1,13 @@
+---
+title: Lanterna
+author: Jose Ignacio Seco
+header-includes:
+    - |
+        <style>
+        h1::after, h2::after, h3::after, h4::after, h5::after, h6::after, p::after {
+            content: "\A";
+            white-space: pre;
+        }
+        </style>
+---
+
