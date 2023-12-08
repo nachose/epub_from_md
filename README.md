@@ -10,3 +10,8 @@ It can be in several places. For example, I do have it in ~/.local/share/
 
 - Copy metadata_header.txt file to the root of your markdown. Edit the values if you want to
   change something.
+
+## Thanks.
+
+I copied the css file from http://bbebooksthailand.com/bb-CSS-boilerplate.html
+Thank you, guys.

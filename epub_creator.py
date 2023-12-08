@@ -14,10 +14,12 @@ import subprocess
 # @param contents        [in]    Contents of the markdown file. I learnt today that string is immutable in python.
 #
 # @return Exit code.
-def convert_markdown_to_epub(input_file,
-                             recursion_depth,
-                             added_links,
-                             contents):
+def convert_markdown_to_epub(input_file):
+    added_links = []
+    contents = ""
+    recursion_depth = 1
+
+    contents = read_metadata()
 
     contents = iterate_files(input_file, recursion_depth, added_links, contents)
 
@@ -27,8 +29,8 @@ def convert_markdown_to_epub(input_file,
 
 
     # Convert the current Markdown file to EPUB
-    if recursion_depth == 1:
-        write_files(contents, output_filename)
+    # if recursion_depth == 1:
+    write_files(contents, output_filename)
 
 def iterate_files(input_file, recursion_depth, added_links, contents):
     # Read the Markdown file
@@ -37,7 +39,7 @@ def iterate_files(input_file, recursion_depth, added_links, contents):
         markdown_content = f.read()
 
     # print("Adding to contents file " + input_file)
-    contents = contents + markdown_content
+    contents = contents + "\n\n" + markdown_content
 
     # Find links and print them.
     links = find_links(markdown_content)
@@ -88,8 +90,7 @@ def write_files(content, output_file):
 
 
     print("Finally creating the file:")
-    cmd = "pandoc {} -o {}".format("result_markdown.md", output_file)
-    # os.system("pandoc " + "result_markdown.md" + " -o " + output_file)
+    cmd = "pandoc --verbose --css=./epub.css {} -o {}".format("result_markdown.md", output_file)
     os.system(cmd)
     print(cmd)
 
@@ -151,6 +152,14 @@ def find_images(markdown_content):
 
     return images
 
+def read_metadata():
+    metadata = ""
+    with open("metadata_header.txt", 'r') as f:
+        metadata = f.read()
+
+    return metadata
+
+
 
 
 if __name__ == '__main__':
@@ -161,11 +170,6 @@ if __name__ == '__main__':
     # entrypoint_file = 'documentation.md'  # Replace with the actual filename
     # output_file = entrypoint_file.removesuffix('.md') + ".epub"
 
-    added_links = []
-    contents = ""
 
-    convert_markdown_to_epub(entrypoint_file,
-                             1,
-                             added_links,
-                             contents)
+    convert_markdown_to_epub(entrypoint_file)
 
