@@ -8,3 +8,11 @@ it is failing for images.
 -Change routes to images.
 
 -Change headers, so that they inherit depth from parent.
+
+-Add a title in the pandoc generation.
+
+-Add a stylesheet for better handling of spaces. Should have a new line after titles,
+  after each paragraph, also after images.
+
+-Instead of passing around parameters, create a new class GenContext or something like that
+ that contains all the data.
