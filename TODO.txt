@@ -3,18 +3,20 @@
 
 -Right now, it only works because we don't have a deep hiherachy.
 If instead we had more than level of directories for the md files, it would fails, as
-it is failing for images.
+it is failing for images.                                                                        [ ]
 
--Change routes to images.
+-Change routes to images.                                                                        [ ]
 
--Change headers, so that they inherit depth from parent.
+-Change headers, so that they inherit depth from parent.                                         [X]
 
--Add a title in the pandoc generation.
+-Add a title in the pandoc generation.                                                           [ ]
 
 -Add a stylesheet for better handling of spaces. Should have a new line after titles,
-  after each paragraph, also after images.
+  after each paragraph, also after images.                                                       [X]
 
 -Instead of passing around parameters, create a new class GenContext or something like that
  that contains all the data.
 
--Read the metadata header, and add it as header of the contents
+-Read the metadata header, and add it as header of the contents                                  [X]
+
+-The code blocks should be syntax highlighted                                                    [ ]
