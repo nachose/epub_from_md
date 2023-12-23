@@ -138,12 +138,13 @@ def find_file(input_file, linked_file):
 
     #If returning 0, replace link to image.
     if not find_output.returncode:
-        output = find_output.stdout.decode("utf-8")
-        if output:
-            file_path = linked_file.replace(linked_file, output)
-            file_path = file_path[2:]
-            print("Replacing {} with {}".format(linked_file, file_path))
-    else:
+      output = find_output.stdout.decode("utf-8")
+      if output:
+        file_path = linked_file.replace(linked_file, output)
+        file_path = file_path[2:]
+        file_path = os.path.join(os.path.dirname(input_file), linked_file)
+        # print("Replacing {} with {}".format(linked_file, file_path))
+      else:
         file_path = os.path.join(os.path.dirname(input_file), linked_file)
 
     #Seems that I'm forced to flush the output here, else the messages appear unordered.
