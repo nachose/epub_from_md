@@ -3,13 +3,13 @@
 
 -Right now, it only works because we don't have a deep hiherachy.
 If instead we had more than level of directories for the md files, it would fails, as
-it is failing for images.                                                                        [ ]
+it is failing for images.                                                                        [X]
 
--Change routes to images.                                                                        [ ]
+-Change routes to images.                                                                        [X]
 
 -Change headers, so that they inherit depth from parent.                                         [X]
 
--Add a title in the pandoc generation.                                                           [ ]
+-Add a title in the pandoc generation.                                                           [X]
 
 -Add a stylesheet for better handling of spaces. Should have a new line after titles,
   after each paragraph, also after images.                                                       [X]
@@ -19,4 +19,6 @@ it is failing for images.                                                       
 
 -Read the metadata header, and add it as header of the contents                                  [X]
 
--The code blocks should be syntax highlighted                                                    [ ]
+-The code blocks should be syntax highlighted                                                    [X]
+(The ones that are marked with a programming language are being syntax highlithed,
+ those that are not marked, are not being highlighted)
