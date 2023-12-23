@@ -47,7 +47,8 @@ def iterate_files(input_file, recursion_depth, added_links, contents):
     # Convert linked Markdown files recursively
     for link in links:
         # print (link)
-        linked_file = os.path.join(os.path.dirname(input_file), str(link))
+        # linked_file = os.path.join(os.path.dirname(input_file), str(link))
+        linked_file = find_file(input_file, str(link))
         # print ("linked_file " + linked_file)
 
         already_added = added_links.count(linked_file) > 0
@@ -120,6 +121,37 @@ def process_images(content):
     sys.stderr.flush()
 
     return content
+
+def find_file(input_file, linked_file):
+
+    file_path = ""
+    basename = os.path.basename(linked_file)
+    dirname  = os.path.dirname(linked_file)
+    if dirname:
+        cmd = "find . -path '*{}*{}'".format(dirname, basename)
+    else:
+        cmd = "find . -path '{}'".format(basename)
+    print("Find command to execute: " + cmd)
+    os.system(cmd)
+    # find_output = subprocess.check_output(cmd, shell=True)
+    find_output = subprocess.run(cmd, shell=True, capture_output=True)
+
+    #If returning 0, replace link to image.
+    if not find_output.returncode:
+      output = find_output.stdout.decode("utf-8")
+      if output:
+        file_path = linked_file.replace(linked_file, output)
+        file_path = file_path[2:]
+        file_path = os.path.join(os.path.dirname(input_file), linked_file)
+        # print("Replacing {} with {}".format(linked_file, file_path))
+      else:
+        file_path = os.path.join(os.path.dirname(input_file), linked_file)
+
+    #Seems that I'm forced to flush the output here, else the messages appear unordered.
+    sys.stdout.flush()
+    sys.stderr.flush()
+
+    return file_path
 
 
 
