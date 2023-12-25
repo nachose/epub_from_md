@@ -1,3 +1,4 @@
+"""Os functions"""
 import os
 import re
 import sys
@@ -71,7 +72,7 @@ def recurse_files(input_file, recursion_depth, added_links, contents):
 def print_recursion(recursion_depth, input_file, output_filename):
 
     tabs_init = ''
-    while(recursion_depth):
+    while recursion_depth :
         tabs_init = tabs_init + "  "
         recursion_depth = recursion_depth -1
     # print(tabs_init + input_file + " to file " + output_filename)
@@ -142,14 +143,14 @@ def find_file(input_file, linked_file):
 
     #If returning 0, replace link to image.
     if not find_output.returncode:
-      output = find_output.stdout.decode("utf-8")
-      if output:
-        file_path = linked_file.replace(linked_file, output)
-        file_path = file_path[2:]
-        file_path = os.path.join(os.path.dirname(input_file), linked_file)
-        # print("Replacing {} with {}".format(linked_file, file_path))
-      else:
-        file_path = os.path.join(os.path.dirname(input_file), linked_file)
+        output = find_output.stdout.decode("utf-8")
+        if output:
+            file_path = linked_file.replace(linked_file, output)
+            file_path = file_path[2:]
+            file_path = os.path.join(os.path.dirname(input_file), linked_file)
+            # print("Replacing {} with {}".format(linked_file, file_path))
+        else:
+            file_path = os.path.join(os.path.dirname(input_file), linked_file)
 
     #Seems that I'm forced to flush the output here, else the messages appear unordered.
     sys.stdout.flush()
@@ -200,4 +201,3 @@ if __name__ == '__main__':
 
 
     convert_markdown_to_epub(entrypoint_file)
-
