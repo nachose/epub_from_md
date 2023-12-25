@@ -7,11 +7,6 @@ import subprocess
 #        Convert input file to just one epub.
 #
 # @param input_file      [in]    Input file. Beware the function is recursive
-# @param recursion_depth [in]    recursion depth, for now just for debugging.
-# @param added_links     [inout] links already added. This is because markdonw files,
-#                                being unstructured, can have circular references, as is the case
-#                                in which I'm working now.
-# @param contents        [in]    Contents of the markdown file. I learnt today that string is immutable in python.
 #
 # @return Exit code.
 def convert_markdown_to_epub(input_file):
@@ -21,7 +16,7 @@ def convert_markdown_to_epub(input_file):
 
     contents = read_metadata()
 
-    contents = iterate_files(input_file, recursion_depth, added_links, contents)
+    contents = recurse_files(input_file, recursion_depth, added_links, contents)
 
     output_filename = get_output_filename(input_file)
 
@@ -32,7 +27,16 @@ def convert_markdown_to_epub(input_file):
     # if recursion_depth == 1:
     write_files(contents, output_filename)
 
-def iterate_files(input_file, recursion_depth, added_links, contents):
+##
+# @brief recurse_files Iterate recursively through the files.
+#
+# @param input_file [in] Input file
+# @param recursion_depth [in] Recursion depth as a number
+# @param added_links [in] As md is not structured take into accaount links that are already added
+# @param contents [in] Contents are being passed then recreated.
+#
+# @return Contents with links substitued by the link content.
+def recurse_files(input_file, recursion_depth, added_links, contents):
     # Read the Markdown file
     # print("Read markdown file: " + input_file)
     with open(input_file, 'r') as f:
@@ -159,10 +163,6 @@ def find_links(markdown_content):
     link_pattern = r'\[([^\]]+)\]\(([^)]+)\)'
     links = re.findall(link_pattern, markdown_content)
 
-    # for link in links:
-    #     print(f"Link text: {link[0]}")
-    #     print(f"URL: {link[1]}")
-
     files = []
     link_http = r'http'
 
@@ -179,8 +179,6 @@ def find_images(markdown_content):
     img_pattern = r'!\[.*\]\((.*\.jpg|.*\.jpeg|.*\.png)\)'
     images = re.findall(img_pattern, markdown_content)
 
-    # for img in images:
-    #     print("Img found : " + img)
 
     return images
 
@@ -199,8 +197,6 @@ if __name__ == '__main__':
         print ("Usage python3 epub_creator.py entrypoint_file.md")
         exit (1)
     entrypoint_file = sys.argv[1]
-    # entrypoint_file = 'documentation.md'  # Replace with the actual filename
-    # output_file = entrypoint_file.removesuffix('.md') + ".epub"
 
 
     convert_markdown_to_epub(entrypoint_file)

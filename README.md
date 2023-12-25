@@ -10,6 +10,7 @@ It can be in several places. For example, I do have it in ~/.local/share/
 
 - Copy metadata_header.txt file to the root of your markdown. Edit the values if you want to
   change something.
+- Invoke it in the following fashion: `python3 epub_creator.py entry_point_of_md.md`
 
 ## Thanks.
 
